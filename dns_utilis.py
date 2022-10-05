@@ -1,6 +1,9 @@
 from dns.resolver import resolve, query, dns, NoAnswer, NXDOMAIN
 from dns.rdatatype import CNAME
 from dns.rdatatype import NS as NAMSERVER
+
+from available.checker import safe_domain
+
 import socket
 
 
@@ -48,12 +51,7 @@ def NS(domain, verbose = False):
             print(f"[*] {domain}: Nameserver is {ns}\n")
 		
         if nxdomain(ns):
-            available = available(ns)
+            available, _ = safe_domain(ns)
 
             if available:
                 print("[!] {domain}'s nameserver: {ns} is available for purchase!\n")
-
-def available():
-    pass
-
-NS('amanjha123.com')
